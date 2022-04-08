@@ -71,7 +71,7 @@ function current_question_screen()
   console.log('question_screen');
   console.log(current_question());
   document.getElementById("current_screen").remove();
-  render(
+  this.render(
     <div align="center" className="question_screen" id="current_screen">
       <div className="question_container"><span id="question"></span></div>
       <button id="answer_1"></button>
