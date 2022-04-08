@@ -1,6 +1,7 @@
 import logo from "./logo.svg";
 import "./App.css";
-import { render } from "@testing-library/react";
+import ReactDOM from 'react-dom';
+//import { render } from "@testing-library/react";
 //declaring global game variables
 var questions=null,         /*pull of questions from api*/
     current_question_num,   /*pointing to the current question number in questions collection*/
