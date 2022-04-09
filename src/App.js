@@ -1,7 +1,9 @@
 import logo from "./logo.svg";
 import "./App.css";
-import ReactDOM from 'react-dom';
-//import { render } from "@testing-library/react";
+//import ReactDOM from 'react-dom';
+import * as ReactDOM from 'react-dom';
+import { render } from "@testing-library/react";
+import React from "react";
 //declaring global game variables
 var questions=null,         /*pull of questions from api*/
     current_question_num,   /*pointing to the current question number in questions collection*/
@@ -66,24 +68,39 @@ function startGame() {
 
 }
 
+class question_screen extends React.Component {
+  render () {
+    return (
+    <div align="center" className="question_screen" id="current_screen">
+    <div className="question_container"><span id="question"></span></div>
+    <button id="answer_1"></button>
+    <button id="answer_2"></button>
+    <button id="answer_3"></button>
+    <button id="answer_4"></button>
+    <br/>
+    <button onClick={()=>{next_question();current_question_screen();}}>next question</button>
+    </div>
+    );
+  }
+}
+
+
 //paints and run a cycle of question screen
 function current_question_screen()
 {
   console.log('question_screen');
   console.log(current_question());
-  document.getElementById("current_screen").remove();
-  this.render(
+  //document.getElementById("current_screen").remove(); 
+  ReactDOM.render(
     <div align="center" className="question_screen" id="current_screen">
-      <div className="question_container"><span id="question"></span></div>
-      <button id="answer_1"></button>
-      <button id="answer_2"></button>
-      <button id="answer_3"></button>
-      <button id="answer_4"></button>
-      <br/>
-      <button onClick={()=>{next_question();current_question_screen();}}>next question</button>
-    </div>
-  
-    );
+    <div className="question_container"><span id="question"></span></div>
+    <button id="answer_1"></button>
+    <button id="answer_2"></button>
+    <button id="answer_3"></button>
+    <button id="answer_4"></button>
+    <br/>
+    <button onClick={()=>{next_question();current_question_screen();}}>next question</button>
+    </div>, document.getElementById('root'));
     //Using javaScript avoids React's showing html sign codes on user's interface
     document.getElementById("question").innerHTML = current_question().question;
     let correct_answer_place;
@@ -110,6 +127,7 @@ function current_question_screen()
             document.getElementById("answer_"+i).innerHTML = current_question().incorrect_answers[incorect_answer_loc++];
     }
     console.log(correct_answer_place);
+  
 }
 
 function welcomeForm(){
@@ -149,9 +167,19 @@ const divStyle={background:'white'};
     );
 }
 
+class App extends React.Component {
+  render() {
+    return (
+      welcomeForm()
+    );
+  }
+}
+
+/*
 function App() {
   return welcomeForm();
   //return gameBoard();
 }
+*/
 
 export default App;
